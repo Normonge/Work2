@@ -2,6 +2,8 @@ public class Main {
     public static void main(String[] args) {
         Main ex1 = new Main();
         ex1.go();
+        Repository repo = new Repository();
+        repo.readFile();
     }
 
    NMAVLTree tree;
