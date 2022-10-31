@@ -1,21 +1,24 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class Repository {
     //read top10s_1.csv
 
-    public void readFile(){
-        try{
-            File file = new File("top10s_1.csv");
-            Scanner sc = new Scanner(file);
-            while(sc.hasNextLine()){
-                String line = sc.nextLine();
-                String[] values = line.split(",");
-                System.out.println(values[0]);
+    public void readTitleFile() throws IOException {
+        StringBuilder fileContents = new StringBuilder();
+        File file = new File("top10s_1.csv");
+        try (BufferedReader reader = new BufferedReader(new FileReader(file, StandardCharsets.UTF_8))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                //print title only
+
+                System.out.println(line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)")[1]);
             }
-        } catch (FileNotFoundException e){
-            e.printStackTrace();
+
         }
+
+
     }
+
 }
