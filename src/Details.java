@@ -14,4 +14,8 @@ public class Details {
         this.nrgy = nrgy;
         this.dnce = dnce;
     }
+
+    public String returnAllDetails() {
+        return artist + " " + genre + " " + year + " " + bpm + " " + nrgy + " " + dnce;
+    }
 }

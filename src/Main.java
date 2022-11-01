@@ -6,7 +6,7 @@ public class Main {
 
         Repository repo = new Repository();
         ArrayList<Music> musicArrayList = repo.createMusicArrayList();
-        musicArrayList.forEach(music -> System.out.println(music.getName()  + " " + music.getDetails()));
+        musicArrayList.forEach(music -> System.out.println(music.getName()  + " " + music.getDetails().returnAllDetails()));
 
     }
 
