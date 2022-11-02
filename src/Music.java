@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Music {
+public class Music implements Comparable<Music> {
     String name;
     Details details;
 
@@ -15,5 +15,10 @@ public class Music {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int compareTo(Music o) {
+        return 0;
     }
 }

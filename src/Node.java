@@ -1,11 +1,14 @@
-public class Node {
-    int height;
-    int dat;
-    Node left;
-    Node right;
+import lombok.Data;
+import lombok.NonNull;
 
-    public Node(int dat){
-        this.dat = dat;
-        height = 0;
-    }
+@Data
+public class Node<T extends Comparable<T>> {
+    @NonNull
+    private T data;
+    private int height = 1;
+    private Node<T> leftChild;
+    private Node<T> rightChild;
+
+
+
 }

@@ -12,10 +12,11 @@ public class Repository {
         ArrayList<Music> musicArrayList = new ArrayList<Music>();
         try (BufferedReader reader = new BufferedReader(new FileReader(file, StandardCharsets.UTF_8))) {
             String line;
+            line = reader.readLine();
             while ((line = reader.readLine()) != null) {
                 //print title only
 
-                System.out.println(line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)")[1]);
+
                 //create music object
                 Details details = new Details(
                         line.split(",")[2],
