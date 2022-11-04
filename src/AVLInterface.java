@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Map;
 
 public interface AVLInterface<T extends Comparable<T>> {
@@ -10,7 +11,7 @@ public interface AVLInterface<T extends Comparable<T>> {
     /** Runs project.  You will create an instance of your project in main
      *      and then have it invoke this method to begin running.
      */
-    public void go();
+    public void go() throws IOException;
 
     /* The following methods are commands that the user can run */
     public void find(String name); // find and print Record

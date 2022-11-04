@@ -1,6 +1,10 @@
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.Scanner;
+import java.util.TreeMap;
 
-public class AVLAVLInterface<T extends Comparable<T>> implements AVLInterface<T> {
+public class AVLTree<T extends Comparable<T>> implements AVLInterface<T> {
 
     private Node<T> root;
 
@@ -143,8 +147,48 @@ public class AVLAVLInterface<T extends Comparable<T>> implements AVLInterface<T>
     }
 
     @Override
-    public void go() {
+    public void go() throws IOException {
+        Repository repo = new Repository();
+        ArrayList<Music> musicArrayList = repo.createMusicArrayList();
 
+
+        //make key value pair
+        Map<String, Details> musicMap = new TreeMap<>();
+        for (Music music : musicArrayList) {
+            musicMap.put(music.getName(), music.getDetails());
+        }
+        //insert into avl tree
+        for (Map.Entry<String, Details> entry : musicMap.entrySet()) {
+            this.add(entry);
+        }
+
+        findOption();
+
+    }
+
+    public static void giveOption(){
+        System.out.println("Choose an option: ");
+        System.out.println("\t 1. Find a song");
+        System.out.println("\t 2. Add a song");
+        System.out.println("\t 3. Count the number of nodes");
+        System.out.println("\t 4. Traverse the tree in inorder");
+        System.out.println("\t 5. Traverse the tree in preorder");
+        System.out.println("\t 6. Traverse the tree in postorder");
+        System.out.println("\t 7. Greeting");
+        System.out.println("\t 8. Help");
+        System.out.println("\t 9. Exit");
+    }
+
+    public void findOption(){
+        Scanner enter = new Scanner(System.in);
+        int chosen = enter.nextInt();
+
+        if (chosen == 1){
+            Scanner enterName = new Scanner(System.in);
+            String name = enterName.nextLine();
+            System.out.println("Enter the name of the song: ");
+            this.find(name);
+        }
     }
 
     @Override
