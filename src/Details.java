@@ -1,4 +1,4 @@
-public class Details {
+public class Details implements Comparable<Details> {
     String artist;
     String genre;
     String year;
@@ -17,5 +17,10 @@ public class Details {
 
     public String returnAllDetails() {
         return artist + " " + genre + " " + year + " " + bpm + " " + nrgy + " " + dnce;
+    }
+
+    @Override
+    public int compareTo(Details o) {
+        return 0;
     }
 }

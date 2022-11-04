@@ -1,21 +1,22 @@
+import java.util.Map;
+
 public class AVLTree<T extends Comparable<T>> implements Tree<T> {
 
     private Node<T> root;
 
-    @Override
-    public Tree<T> insert(String data) {
-        root = insert((T) data, root);
+    public Tree<T> add(Map.Entry<String, Details> data) {
+        root = insert((T) data.getKey(), (Details) data.getValue(), root);
         return this;
     }
 
-    private Node<T> insert(T data, Node<T> node) {
+    private Node<T> insert(T data, Details details, Node<T> node) {
         if (node == null) {
-            return new Node<>(data);
+            return new Node<>(data, details);
         }
-        if (data.compareTo(node.getData()) < 0) {
-            node.setLeftChild(insert(data, node.getLeftChild()));
-        } else if (data.compareTo(node.getData()) > 0) {
-            node.setRightChild(insert(data, node.getRightChild()));
+        if (data.compareTo(node.getName()) < 0) {
+            node.setLeftChild(insert(data, details, node.getLeftChild()));
+        } else if (data.compareTo(node.getName()) > 0) {
+            node.setRightChild(insert(data, details, node.getRightChild()));
         } else {
             return node;
         }
@@ -24,41 +25,19 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     @Override
-    public void delete(T data) {
-        root = delete(data, root);
-    }
-
-    private Node<T> delete(T data, Node<T> node) {
-        if (node == null) {
-            return null;
-        }
-        if (data.compareTo(node.getData()) < 0) {
-            node.setLeftChild(delete(data, node.getLeftChild()));
-        } else if (data.compareTo(node.getData()) > 0) {
-            node.setRightChild(delete(data, node.getRightChild()));
-        } else {
-            // One Child or Leaf Node (no children)
-            if (node.getLeftChild() == null) {
-                return node.getRightChild();
-            } else if (node.getRightChild() == null) {
-                return node.getLeftChild();
-            }
-            // Two Children
-            node.setData(getMax(node.getLeftChild()));
-            node.setLeftChild(delete(node.getData(), node.getLeftChild()));
-        }
-        updateHeight(node);
-        return applyRotation(node);
-    }
-
-    @Override
-    public void traverse() {
+    public void traverseInOrder() {
         traverseInOrder(root);
     }
 
     @Override
     public void traversePostOrder() {
         traversePostOrder(root);
+    }
+
+
+    @Override
+    public String getMyName() {
+        return null;
     }
 
     @Override
@@ -69,24 +48,34 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     private void traverseInOrder(Node<T> node) {
         if (node != null) {
             traverseInOrder(node.getLeftChild());
-            System.out.println(node);
+            System.out.println(node.getName().toString());
             traverseInOrder(node.getRightChild());
         }
     }
-
 
     private void traversePostOrder(Node<T> node) {
         if (node != null) {
             traversePostOrder(node.getLeftChild());
             traversePostOrder(node.getRightChild());
-            System.out.println(node);
+            System.out.println(node.getName().toString());
         }
     }
 
     //preorder
     private void traversePreOrder(Node<T> node) {
         if (node != null) {
-            System.out.println(node);
+            System.out.println(node.getName().toString() + " " + node.getDetails());
+            if (node.getLeftChild() != null) {
+                System.out.println("Left Child:{ " + node.getLeftChild().getName().toString() + " } ");
+            } else
+                System.out.println("Left Child:{ null } ");
+
+            if (node.getRightChild() != null) {
+                System.out.println("Right Child:{ " + node.getRightChild().getName().toString() + " } ");
+            } else
+                System.out.println("Right Child:{ null } ");
+
+            System.out.println("--------------------------------------------------");
             traversePreOrder(node.getLeftChild());
             traversePreOrder(node.getRightChild());
         }
@@ -97,48 +86,11 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
         return count(root);
     }
 
-    //print count all of nodesleft and right
     private int count(Node<T> node) {
         if (node == null) {
             return 0;
         }
-        return count(node.getLeftChild()) + count(node.getRightChild()) + 1;
-    }
-
-
-    @Override
-    public T getMax() {
-        if (isEmpty()) {
-            return null;
-        }
-        return getMax(root);
-    }
-
-    private T getMax(Node<T> node) {
-        if (node.getRightChild() != null) {
-            return getMax(node.getRightChild());
-        }
-        return node.getData();
-    }
-
-    @Override
-    public T getMin() {
-        if (isEmpty()) {
-            return null;
-        }
-        return getMin(root);
-    }
-
-    private T getMin(Node<T> node) {
-        if (node.getLeftChild() != null) {
-            return getMin(node.getLeftChild());
-        }
-        return node.getData();
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return root == null;
+        return count(node.getLeftChild()) + 1 + count(node.getRightChild());
     }
 
     private Node<T> applyRotation(Node<T> node) {
@@ -179,11 +131,7 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     private void updateHeight(Node<T> node) {
-        int maxHeight = Math.max(
-                height(node.getLeftChild()),
-                height(node.getRightChild())
-        );
-        node.setHeight(maxHeight + 1);
+        node.setHeight(Math.max(height(node.getLeftChild()), height(node.getRightChild())) + 1);
     }
 
     private int balance(Node<T> node) {
@@ -191,9 +139,43 @@ public class AVLTree<T extends Comparable<T>> implements Tree<T> {
     }
 
     private int height(Node<T> node) {
-        return node != null ? node.getHeight() : 0;
+        return node != null ? node.getHeight() : -1;
     }
 
+    @Override
+    public void go() {
 
+    }
 
+    @Override
+    public void find(String name) {
+        find(name, root);
+    }
+
+    private void find(String name, Node<T> node) {
+        if (node != null) {
+            if (name.compareTo(node.getName().toString()) < 0) {
+                find(name, node.getLeftChild());
+            } else if (name.compareTo(node.getName().toString()) > 0) {
+                find(name, node.getRightChild());
+            } else {
+                System.out.println(node.getSearchResult());
+            }
+        }
+    }
+
+    @Override
+    public void greeting() {
+
+    }
+
+    @Override
+    public void help() {
+
+    }
+
+    @Override
+    public void exit() {
+
+    }
 }

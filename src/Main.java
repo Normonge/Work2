@@ -1,5 +1,5 @@
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -8,20 +8,22 @@ public class Main {
         ArrayList<Music> musicArrayList = repo.createMusicArrayList();
 
         Tree<Integer> avlTree = new AVLTree<>();
-        musicArrayList.forEach(music -> avlTree.insert(music.getName()));
+        //make key value pair
+        Map<String, Details> musicMap = new TreeMap<>();
+        for (Music music : musicArrayList) {
+            musicMap.put(music.getName(), music.getDetails());
+        }
+        //insert into avl tree
+        for (Map.Entry<String, Details> entry : musicMap.entrySet()) {
+            avlTree.add(entry);
+        }
 
         avlTree.traversePreOrder();
+
         avlTree.count();
         System.out.println(avlTree.count() + " nodes in tree");
 
-        System.out.println("Max is: " + avlTree.getMax());
-        System.out.println("Min is: " + avlTree.getMin());
 
-//        System.out.println("Deleting 42 from Tree");
-//        avlTree.delete(42);
-
-    //   System.out.println("New Max is: " + avlTree.getMax());
-
-
+        avlTree.find("Never Be the Same - Radio Edit");
     }
-    }
+}
