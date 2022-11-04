@@ -1,10 +1,10 @@
 import java.util.Map;
 
-public class AVLTree<T extends Comparable<T>> implements Tree<T> {
+public class AVLAVLInterface<T extends Comparable<T>> implements AVLInterface<T> {
 
     private Node<T> root;
 
-    public Tree<T> add(Map.Entry<String, Details> data) {
+    public AVLInterface<T> add(Map.Entry<String, Details> data) {
         root = insert((T) data.getKey(), (Details) data.getValue(), root);
         return this;
     }

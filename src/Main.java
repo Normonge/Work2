@@ -7,7 +7,7 @@ public class Main {
         Repository repo = new Repository();
         ArrayList<Music> musicArrayList = repo.createMusicArrayList();
 
-        Tree<Integer> avlTree = new AVLTree<>();
+        AVLInterface<Integer> avlAVLInterface = new AVLAVLInterface<>();
         //make key value pair
         Map<String, Details> musicMap = new TreeMap<>();
         for (Music music : musicArrayList) {
@@ -15,15 +15,14 @@ public class Main {
         }
         //insert into avl tree
         for (Map.Entry<String, Details> entry : musicMap.entrySet()) {
-            avlTree.add(entry);
+            avlAVLInterface.add(entry);
         }
 
-        avlTree.traversePreOrder();
+        avlAVLInterface.traversePreOrder();
 
-        avlTree.count();
-        System.out.println(avlTree.count() + " nodes in tree");
+        avlAVLInterface.count();
+        System.out.println(avlAVLInterface.count() + " nodes in tree");
 
-
-        avlTree.find("Never Be the Same - Radio Edit");
+        avlAVLInterface.find("Never Be the Same - Radio Edit");
     }
 }
