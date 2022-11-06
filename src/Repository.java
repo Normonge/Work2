@@ -16,15 +16,14 @@ public class Repository {
             while ((line = reader.readLine()) != null) {
                 //print title only
 
-
                 //create music object
                 Details details = new Details(
-                        line.split(",")[2],
-                        line.split(",")[3],
-                        line.split(",")[4],
-                        line.split(",")[5],
-                        line.split(",")[6],
-                        line.split(",")[7]
+                        line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)")[2],
+                        line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)")[3],
+                        line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)")[4],
+                        line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)")[5],
+                        line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)")[6],
+                        line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)")[7]
                 );
                 String title = line.split(",(?=([^\"]*\"[^\"]*\")*[^\"]*$)")[1];
                 musicArrayList.add(new Music(title, details));

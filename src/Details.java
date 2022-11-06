@@ -6,7 +6,7 @@ public class Details implements Comparable<Details> {
     String nrgy;
     String dnce;
 
-    public Details(String artist, String genre, String year, String bpm, String nrgy, String dnce) {
+    public Details(String artist, String genre, String year, String bpm, String nrgy, String dnce) { //constructor
         this.artist = artist;
         this.genre = genre;
         this.year = year;

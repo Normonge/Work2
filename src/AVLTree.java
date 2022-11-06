@@ -1,8 +1,5 @@
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.TreeMap;
+import java.util.*;
 
 public class AVLTree<T extends Comparable<T>> implements AVLInterface<T> {
 
@@ -41,7 +38,7 @@ public class AVLTree<T extends Comparable<T>> implements AVLInterface<T> {
 
     @Override
     public String getMyName() {
-        return null;
+        return "My name is " + "Norman Marroquin-MONGE";
     }
 
     @Override
@@ -187,10 +184,9 @@ public class AVLTree<T extends Comparable<T>> implements AVLInterface<T> {
         }
 
         findOption();
-
     }
 
-    public static void giveOption() {
+    public void giveOption() {
         System.out.println("Choose an option: ");
         System.out.println("\t 1. Find a song");
         System.out.println("\t 2. Add a song");
@@ -204,15 +200,85 @@ public class AVLTree<T extends Comparable<T>> implements AVLInterface<T> {
     }
 
     public void findOption() {
+        giveOption();
         Scanner enter = new Scanner(System.in);
         int chosen = enter.nextInt();
 
+
         if (chosen == 1) {
+            System.out.println("Enter the name of the song: ");
             Scanner enterName = new Scanner(System.in);
             String name = enterName.nextLine();
+
+            //ignor case
+            this.find(name.toLowerCase());
+        } else if (chosen == 2) {
             System.out.println("Enter the name of the song: ");
-            this.find(name);
+            Scanner enterName = new Scanner(System.in);
+            String name = enterName.nextLine();
+
+            System.out.println("Enter the artist of the song: ");
+            Scanner enterDetails = new Scanner(System.in);
+            String artist = enterDetails.nextLine();
+
+            System.out.println("Enter the genre of the song: ");
+            Scanner enterGenre = new Scanner(System.in);
+            String genre = enterGenre.nextLine();
+
+            System.out.println("Enter the year of the song: ");
+            Scanner enterYear = new Scanner(System.in);
+            String year = enterYear.nextLine();
+
+            System.out.println("Enter the bpm of the song: ");
+            Scanner enterBPM = new Scanner(System.in);
+            String bpm = enterBPM.nextLine();
+
+            System.out.println("Enter the nrgy of the song: ");
+            Scanner enterNrgy = new Scanner(System.in);
+            String nrgy = enterNrgy.nextLine();
+
+            System.out.println("Enter the dnce of the song: ");
+            Scanner enterDnce = new Scanner(System.in);
+            String dnce = enterDnce.nextLine();
+
+            Details details = new Details(artist, genre, year, bpm, nrgy, dnce);
+            Map<String, Details> musicMap = new TreeMap<>();
+            musicMap.put(name, details);
+            Map.Entry<String, Details> entry = musicMap.entrySet().iterator().next();
+            this.add(entry);
+
+
+        } else if (chosen == 3) {
+            System.out.println("The number of nodes is: " + this.count());
+        } else if (chosen == 4) {
+            System.out.println("Inorder traversal: ");
+            this.traverseInOrder();
+        } else if (chosen == 5) {
+            System.out.println("Preorder traversal: ");
+            this.traversePreOrder();
+        } else if (chosen == 6) {
+            System.out.println("Postorder traversal: ");
+            this.traversePostOrder();
+        } else if (chosen == 7) {
+            greeting();
+        } else if (chosen == 8) {
+            System.out.println("1. Find a song: Enter the name of the song and the program will return the details of the song");
+            System.out.println("2. Add a song: Enter the name of the song, the artist, the genre, the year, the bpm, the nrgy and the dnce of the song and the program will add the song to the tree");
+            System.out.println("3. Count the number of nodes: The program will return the number of nodes in the tree");
+            System.out.println("4. Traverse the tree in inorder: The program will return the inorder traversal of the tree");
+            System.out.println("5. Traverse the tree in preorder: The program will return the preorder traversal of the tree");
+            System.out.println("6. Traverse the tree in postorder: The program will return the postorder traversal of the tree");
+            System.out.println("7. Greeting: The program will return a greeting");
+            System.out.println("8. Help: The program will return the help menu");
+            System.out.println("9. Exit: The program will exit");
+        } else if (chosen == 9) {
+            System.out.println("Goodbye!");
+            System.exit(0);
+        } else {
+            System.out.println("Invalid option. Please try again.");
+            findOption();
         }
+        findOption();
     }
 
     @Override
@@ -222,9 +288,9 @@ public class AVLTree<T extends Comparable<T>> implements AVLInterface<T> {
 
     private void find(String name, Node<T> node) {
         if (node != null) {
-            if (name.compareTo(node.getName().toString()) < 0) {
+            if (name.compareTo(node.getName().toString().toLowerCase(Locale.ROOT)) < 0) {
                 find(name, node.getLeftChild());
-            } else if (name.compareTo(node.getName().toString()) > 0) {
+            } else if (name.compareTo(node.getName().toString().toLowerCase(Locale.ROOT)) > 0) {
                 find(name, node.getRightChild());
             } else {
                 System.out.println(node.getSearchResult());
@@ -234,7 +300,8 @@ public class AVLTree<T extends Comparable<T>> implements AVLInterface<T> {
 
     @Override
     public void greeting() {
-
+        String name = getMyName();
+        System.out.println("Hello, I am " + name + "." + "COSC-310" + "11/6/2022");
     }
 
     @Override
