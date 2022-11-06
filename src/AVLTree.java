@@ -52,7 +52,19 @@ public class AVLTree<T extends Comparable<T>> implements AVLInterface<T> {
     private void traverseInOrder(Node<T> node) {
         if (node != null) {
             traverseInOrder(node.getLeftChild());
-            System.out.println(node.getName().toString());
+            System.out.println(node.getName().toString() + " " + node.getDetails());
+            if (node.getLeftChild() != null) {
+                System.out.println("Left Child:{ " + node.getLeftChild().getName().toString() + " } ");
+            } else {
+                System.out.println("Left Child:{ null } ");
+            }
+            if (node.getRightChild() != null) {
+                System.out.println("Right Child:{ " + node.getRightChild().getName().toString() + " } ");
+            } else {
+                System.out.println("Right Child:{ null } ");
+            }
+
+            System.out.println("--------------------------------------------------");
             traverseInOrder(node.getRightChild());
         }
     }
@@ -61,7 +73,19 @@ public class AVLTree<T extends Comparable<T>> implements AVLInterface<T> {
         if (node != null) {
             traversePostOrder(node.getLeftChild());
             traversePostOrder(node.getRightChild());
-            System.out.println(node.getName().toString());
+            System.out.println(node.getName().toString() + " " + node.getDetails());
+            if (node.getLeftChild() != null) {
+                System.out.println("Left Child:{ " + node.getLeftChild().getName().toString() + " } ");
+            } else {
+                System.out.println("Left Child:{ null } ");
+            }
+            if (node.getRightChild() != null) {
+                System.out.println("Right Child:{ " + node.getRightChild().getName().toString() + " } ");
+            } else {
+                System.out.println("Right Child:{ null } ");
+            }
+
+            System.out.println("--------------------------------------------------");
         }
     }
 
@@ -166,7 +190,7 @@ public class AVLTree<T extends Comparable<T>> implements AVLInterface<T> {
 
     }
 
-    public static void giveOption(){
+    public static void giveOption() {
         System.out.println("Choose an option: ");
         System.out.println("\t 1. Find a song");
         System.out.println("\t 2. Add a song");
@@ -179,11 +203,11 @@ public class AVLTree<T extends Comparable<T>> implements AVLInterface<T> {
         System.out.println("\t 9. Exit");
     }
 
-    public void findOption(){
+    public void findOption() {
         Scanner enter = new Scanner(System.in);
         int chosen = enter.nextInt();
 
-        if (chosen == 1){
+        if (chosen == 1) {
             Scanner enterName = new Scanner(System.in);
             String name = enterName.nextLine();
             System.out.println("Enter the name of the song: ");
